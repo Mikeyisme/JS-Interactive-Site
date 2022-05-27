@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Events</title>
+	
+	<style type="text/css">
+	/*margin and padding on body element
+	  can introduce errors in determining
+	  element position and are not recommended;
+	  we turn them off as a foundation for YUI
+	  CSS treatments.
+	*/
+	body {
+		margin:1em;
+	}
+    </style>
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/calendar/assets/skins/sam/calendar.css" />
+	<script type="text/javascript" src="http://yui.yahooapis.com/2.8.2r1/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.2r1/build/calendar/calendar-min.js"></script>
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#nav li').hover(
+        function () {
+           
+            $('ul', this).slideDown(100);
+
+        },
+        function () {
+           
+            $('ul', this).slideUp(100);
+        }
+    );
+});
+</script>
+
+<style>
+<style type="text/css">
+	#cal1Container {
+	   margin:1em;
+	}
+	#caleventlog {
+    float: left;
+    width: 28em;
+    margin: 1em;
+    background-color: #FF7400;
+    border: 1px solid #FFFFFF;
+	}
+	#caleventlog .bd {
+		overflow:auto;
+		height:17em;
+		padding:2px 7px;
+		margin: 0;
+	}
+	#caleventlog .bd h3 {
+		margin: 0;
+		padding:5px 0;
+	}
+	#caleventlog .hd {
+		background-color:#aaa;
+		border-bottom:1px solid #000;
+		font-weight:bold;
+		padding:2px 5px;
+	}
+	#caleventlog .entry {
+		margin:0;
+	}
+	.yui-skin-sam {
+		width: 900px;
+		margin: 0px auto;
+	}
+body {
+	font-family: Calibri, sans-serif;
+	background-image: url(background.jpg);
+	background-size: cover;
+	background-position: center;
+    margin-top: 9px;
+}
+#content {
+    width: 1085px;
+    height: 1100px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #000000;
+    color: #FFFFFF;
+}
+#nav {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#nav li {
+    float: left;
+    display: block;
+    width: auto;
+    position: relative;
+    z-index: 0;
+    background-color: #F51525;
+    margin-left: 55px;
+}
+#nav li a {
+	display:block;
+	padding:5px 45px;
+	font-weight:700;
+	color:#fff;
+	text-decoration: none;
+}
+#nav li a:hover {
+    color: #D09907;
+}
+#nav ul {
+	position:absolute;
+	left:0px;
+	display:none;
+	margin:0 0 0 -7px;
+	padding:0;
+	list-style:none;
+}
+#nav ul li {
+	width:126px;
+	float: left;
+	border-top:1px solid #fff;
+}
+#nav ul a {
+	display:block;
+	padding: 8px 5px;
+	color:#fff;
+}
+#nav ul a:hover {
+	text-decoration:underline;
+}
+*html #nav ul {
+    margin:0 0 0 -7px;
+}
+a:link, a:visited {
+    color: aqua;
+}
+.clearfloat {
+    clear: both;
+    height: 0px;
+}
+tr td img {
+}
+body h3 {
+    margin-top: 30px;
+    padding-top: 10px;
+}
+
+}
+</style>
+</head>
+<body>
+<div id="content">
+  <table width="1200" border="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td width="1080" align="left" valign="bottom"><img src="logo1.jpg" width="1080" height="250" alt=""/></td>
+      </tr>
+    </tbody>
+  </table>
+<ul id="nav">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="#" class="selected">STAFF PICKS</a>
+      <ul>
+        <li><a href="#">Picks Of The Month</a></li>
+        <li><a href="#">50 Books for 50 Years</a></li>
+        <li><a href="#">25 Books From The 21st Century</a></li>
+		<li><a href="#">25 Global Books to Read Beefore You Die</a></li>
+      </ul>
+      <div class="clear"></div>
+    </li>
+    <li><a href="used.html">USED</a>
+	  <ul>
+        <li><a href="#">Award Winners</a></li>
+        <li><a href="#">Bestsellers</a></li>
+        <li><a href="used.html">See All Subjects</a></li>
+      </ul>
+		<div class="clear"></div>
+    </li>
+    <li><a href="events.html">EVENTS</a>
+        <li><a href="location.html">FIND A STORE</a></li>
+    </li>
+	</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 align="center"><img src="bookevent.jpg" alt=""/></h1>
+<table align="center" width="1200" border="0" cellpadding="0">
+  <tbody>
+    <tr>
+		
+		<!--BEGIN SOURCE CODE FOR EXAMPLE =============================== -->
+<script type="text/javascript">
+	YAHOO.namespace("example.calendar");
+
+	YAHOO.example.calendar.init = function() {
+		var eLog = YAHOO.util.Dom.get("evtentries");
+		var eCount = 1;
+		var events = new Array (
+			"<h2>1 May, Book Tasting:</h2><p>A fun way for students to sample some of our books! event starts at 3PM.</p>",
+			"<h2>16 May, Dr.Seuss Trivia: </h2><p>A fun game to play in teams for grade 3-5! event beings at 1PM.</p>",
+			"<h2>31 May, Book Fair Survial Kit</h2><p>Last even of the month that helps young students prepare themsleves for the next school year. All day event.</p>"
+		);
+
+
+		function logEvent(msg) {
+			eLog.innerHTML = msg;
+			eCount++;
+		}
+
+		function dateToLocaleString(dt, cal) {
+                	var wStr = cal.cfg.getProperty("WEEKDAYS_LONG")[dt.getDay()];
+                	var dStr = dt.getDate();
+                	var mStr = cal.cfg.getProperty("MONTHS_LONG")[dt.getMonth()];
+               	 	var yStr = dt.getFullYear();
+                	return (wStr + ", " + dStr + " " + mStr + " " + yStr);
+		}
+
+		function mySelectHandler(type,args,obj) {
+			var selected = args[0];
+			var selDate = this.toDate(selected[0]);
+
+
+			var theDay = dateToLocaleString(selDate, this);
+
+			for ( i=0; i<events.length; i++ ) {
+				if (theDay == "Sunday, 1 May 2022" ) {
+					logEvent( events[0] );
+				}
+				if (theDay == "Monday, 16 May 2022" ) {
+					logEvent( events[1] );
+				}
+				if (theDay == "Tuesday, 31 May 2022" ) {
+					logEvent( events[2] );
+				}
+			}
+		};
+
+		function myDeselectHandler(type, args, obj) {
+			var deselected = args[0];
+			var deselDate = this.toDate(deselected[0]);
+
+			logEvent("DESELECTED: " + dateToLocaleString(deselDate, this));
+		};
+
+		YAHOO.example.calendar.cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
+
+		YAHOO.example.calendar.cal1.selectEvent.subscribe(mySelectHandler, YAHOO.example.calendar.cal1, true);
+		YAHOO.example.calendar.cal1.deselectEvent.subscribe(myDeselectHandler, YAHOO.example.calendar.cal1, true);
+
+		YAHOO.example.calendar.cal1.render();
+		YAHOO.example.calendar.cal1.addRenderer("5/1/2022", YAHOO.example.calendar.cal1.renderCellStyleHighlight2);
+		YAHOO.example.calendar.cal1.addRenderer("5/16/2022", YAHOO.example.calendar.cal1.renderCellStyleHighlight2);
+		YAHOO.example.calendar.cal1.addRenderer("5/31/2022", YAHOO.example.calendar.cal1.renderCellStyleHighlight2);
+	}
+
+	YAHOO.util.Event.onDOMReady(YAHOO.example.calendar.init);
+</script>
+
+		
+		
+      <td><div align="center" id="cal1Container"></div>
+  <div align="center" id="caleventlog" class="eventlog">
+    <div class="hd">Select/Deselect Events</div>
+    <div  align="center" id="evtentries" class="bd"></div>
+  </div>
+	  <div style="clear:both"></div></td>
+    </tr>
+  </tbody>
+</table>
+<table width="1200" border="0" cellpadding="0">
+  <tbody>
+  </tbody>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>
